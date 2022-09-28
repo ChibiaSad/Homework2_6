@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +13,6 @@ public class Main {
 
     public static void printOdd(List<Integer> nums) {
         nums = new ArrayList<>(nums);
-        nums.sort(Integer::compareTo);
         nums.removeIf(num -> num % 2 == 0);
         System.out.println(nums);
     }
@@ -28,36 +25,17 @@ public class Main {
     }
 
     public static void printUnique(List<String> words) {
-        words = new ArrayList<>(words);
-        words.sort(String::compareTo);
-        String prev = null;
-        for (int i = 0; i < words.size() - 1; i++) {
-            if (!words.get(i).equals(words.get(i + 1)) && !words.get(i).equals(prev))
-                System.out.print(words.get(i) + " ");
-            prev = words.get(i);
+        for (String word : words) {
+            if(Collections.frequency(words, word) == 1){
+                System.out.println(word);
+            }
         }
-        System.out.println();
     }
 
     public static void printDuplicateCount(List<String> words) {
-        words = new ArrayList<>(words);
-        words.sort(String::compareTo);
-        String prev = null;
-        int matches = 1;
-        for (int i = 0; i < words.size(); i++) {
-            if(words.get(i).equals(prev)) {
-                matches += 1;
-                if(i == words.size() - 1){
-                    System.out.println(matches);
-                }
-            }
-            else {
-                if(matches != 1){
-                    System.out.println(matches);
-                    matches = 1;
-                }
-            }
-            prev = words.get(i);
+        Set<String> strings = new HashSet<>(words);
+        for (String word : strings) {
+            System.out.println(word + " " + Collections.frequency(words, word));
         }
     }
 }
